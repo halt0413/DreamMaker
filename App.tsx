@@ -1,28 +1,68 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useEffect, useState } from 'react'
+import {
+  PermissionsAndroid,
+  Platform,
+  Image,
+  ScrollView,
+  Text,
+  StyleSheet,
+} from 'react-native'
+import { CameraRoll } from '@react-native-camera-roll/camera-roll'
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+export default function App() {
+  const [photos, setPhotos] = useState<string[]>([])
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS === 'android') {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES
+        )
+        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+          console.warn('Permission not granted')
+          return
+        }
+      }
 
+      const result = await CameraRoll.getPhotos({
+        first: 100,
+        assetType: 'Photos',
+      })
+
+      const randomUris = result.edges
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 10)
+        .map(p => p.node.image.uri)
+
+      setPhotos(randomUris)
+    })()
+  }, [])
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
-  );
+    <ScrollView>
+      {photos.length === 0 ? (
+        <Text style={styles.loadingText}>写真を読み込み中...</Text>
+      ) : (
+        photos.map(uri => (
+          <Image
+            key={uri}
+            source={{ uri }}
+            style={styles.image}
+            resizeMode="cover"
+          />
+        ))
+      )}
+    </ScrollView>
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  loadingText: {
+    margin: 20,
   },
-});
+  image: {
+    width: '100%',
+    height: 200,
+    marginVertical: 5,
+  },
+})
 
-export default App;
