@@ -5,11 +5,11 @@ import {
   Image,
   ScrollView,
   Text,
-  StyleSheet,
 } from 'react-native'
 import { CameraRoll } from '@react-native-camera-roll/camera-roll'
+import { styles } from './GalleryStyles'
 
-export default function App() {
+export default function GalleryScreen() {
   const [photos, setPhotos] = useState<string[]>([])
 
   useEffect(() => {
@@ -37,6 +37,7 @@ export default function App() {
       setPhotos(randomUris)
     })()
   }, [])
+
   return (
     <ScrollView>
       {photos.length === 0 ? (
@@ -54,15 +55,4 @@ export default function App() {
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  loadingText: {
-    margin: 20,
-  },
-  image: {
-    width: '100%',
-    height: 200,
-    marginVertical: 5,
-  },
-})
 
