@@ -5,12 +5,20 @@ import {
   Image,
   ScrollView,
   Text,
+  TouchableOpacity,
+  View,
 } from 'react-native'
 import { CameraRoll } from '@react-native-camera-roll/camera-roll'
+import { useNavigation } from '@react-navigation/native'
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { styles } from './GalleryStyles'
+import { RootStackParamList } from '../../navigation/types'
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Gallery'>
 
 export default function GalleryScreen() {
   const [photos, setPhotos] = useState<string[]>([])
+  const navigation = useNavigation<NavigationProp>()
 
   useEffect(() => {
     (async () => {
@@ -39,7 +47,7 @@ export default function GalleryScreen() {
   }, [])
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ padding: 16 }}>
       {photos.length === 0 ? (
         <Text style={styles.loadingText}>写真を読み込み中...</Text>
       ) : (
@@ -52,7 +60,20 @@ export default function GalleryScreen() {
           />
         ))
       )}
+
+      <View style={{ marginTop: 20, alignItems: 'center' }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Movie')}
+          style={{
+            backgroundColor: '#3498db',
+            paddingVertical: 10,
+            paddingHorizontal: 20,
+            borderRadius: 8,
+          }}
+        >
+          <Text style={{ color: '#fff', fontWeight: 'bold' }}>次へ</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   )
 }
-
