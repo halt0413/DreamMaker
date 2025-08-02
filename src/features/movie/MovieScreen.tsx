@@ -8,16 +8,23 @@ import Share from 'react-native-share'
 import Video from 'react-native-video'
 import { styles } from './MovieStyles'
 import CalendarModal from './CalenderModal'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { RootStackParamList } from '../../navigation/types'
+
+type MovieScreenRouteProp = RouteProp<RootStackParamList, 'Movie'>
 
 export default function MovieScreen() {
+  const route = useRoute<MovieScreenRouteProp>()
+  const { videoUrl } = route.params
   const [selectedDate, setSelectedDate] = useState<string>('')
   const [isCalendarVisible, setCalendarVisible] = useState<boolean>(false)
 
   const handleShare = async () => {
-    if (!selectedDate) return
+    if (!selectedDate || !videoUrl) return
     try {
       await Share.open({
-        message: `選択した日付: ${selectedDate}`,
+        message: `選択した日付: ${selectedDate}\n動画: ${videoUrl}`,
+        url: videoUrl,
       })
     } catch (error) {
       console.log('Share error:', error)
@@ -31,14 +38,14 @@ export default function MovieScreen() {
       </Text>
 
       <TouchableOpacity
-        style={styles.button}
+        style={styles.calemderbutton}
         onPress={() => setCalendarVisible(true)}
       >
         <Text style={styles.buttonText}>カレンダーを開く</Text>
       </TouchableOpacity>
 
       <Video
-        source={{ uri: '' }}
+        source={{ uri: videoUrl }}
         style={styles.video}
         resizeMode="cover"
         repeat
