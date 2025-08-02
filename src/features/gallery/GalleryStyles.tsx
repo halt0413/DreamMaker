@@ -9,4 +9,21 @@ export const styles = StyleSheet.create({
     height: 200,
     marginVertical: 5,
   },
+   touchableopacity: {
+    backgroundColor: '#3498db',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+   },
+   text: {
+    color: '#fff',
+    fontWeight: 'bold',
+   },
+   view: {
+    marginTop: 20,
+    alignItems: 'center'
+   },
+   scrollview: {
+    padding: 16,
+   },
 })
