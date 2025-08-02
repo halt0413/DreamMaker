@@ -77,8 +77,8 @@ export default function GalleryScreen() {
     <View style={styles.loadingContainer}>
       {loading ? (
         <>
-          <ActivityIndicator size="large" color="#3498db" />
-          <Text style={styles.loadingText}>動画を生成しています...</Text>
+          <ActivityIndicator size="large" color="#f1c40f" />
+          <Text style={styles.loadingText}>夢を作成中....</Text>
         </>
       ) : null}
     </View>
