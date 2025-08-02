@@ -20,8 +20,8 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/images/kumo.png')} style={[styles.cloud, { top: 10, left: -50 }]} />
-      <Image source={require('../../assets/images/kumo2.png')} style={[styles.cloud, { top: 100, right: -60 }]} />
-      <Image source={require('../../assets/images/kumo3.png')} style={[styles.cloud, { bottom: 50, left: 10 }]} />
+      <Image source={require('../../assets/images/kumo.png')} style={[styles.cloud, { top: 100, right: -60 }]} />
+      <Image source={require('../../assets/images/kumo.png')} style={[styles.cloud, { bottom: 50, left: 10 }]} />
 
       <View style={styles.overlay}>
         <Text style={styles.title}>DreamMaker</Text>
