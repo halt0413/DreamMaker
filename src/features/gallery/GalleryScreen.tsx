@@ -36,6 +36,11 @@ export default function GalleryScreen() {
           first: 100,
           assetType: 'Photos',
         });
+
+        //  const randomUris = result.edges
+        //   .sort(() => Math.random() - 0.5)
+        //   .slice(0, 10)
+        //   .map(p => p.node.image.uri)
         
         navigation.navigate('Movie');
 
