@@ -47,7 +47,7 @@ export default function GalleryScreen() {
   }, [])
 
   return (
-    <ScrollView contentContainerStyle={{ padding: 16 }}>
+    <ScrollView contentContainerStyle={styles.scrollview}>
       {photos.length === 0 ? (
         <Text style={styles.loadingText}>写真を読み込み中...</Text>
       ) : (
@@ -61,17 +61,12 @@ export default function GalleryScreen() {
         ))
       )}
 
-      <View style={{ marginTop: 20, alignItems: 'center' }}>
+      <View style={styles.view}>
         <TouchableOpacity
           onPress={() => navigation.navigate('Movie')}
-          style={{
-            backgroundColor: '#3498db',
-            paddingVertical: 10,
-            paddingHorizontal: 20,
-            borderRadius: 8,
-          }}
+          style={styles.touchableopacity} 
         >
-          <Text style={{ color: '#fff', fontWeight: 'bold' }}>次へ</Text>
+          <Text style={styles.text}>次へ</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

@@ -47,7 +47,7 @@ export default function MovieScreen() {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={[styles.button, !selectedDate && { opacity: 0.5 }]}
+          style={[styles.button, !selectedDate && styles.touchableopacity]}
           onPress={() => selectedDate && console.log('保存:', selectedDate)}
           disabled={!selectedDate}
         >
@@ -55,7 +55,7 @@ export default function MovieScreen() {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, !selectedDate && { opacity: 0.5 }]}
+          style={[styles.button, !selectedDate && styles.touchableopacity]}
           onPress={handleShare}
           disabled={!selectedDate}
         >

@@ -42,4 +42,7 @@ export const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '600',
   },
+  touchableopacity: {
+    opacity: 0.5,
+  }
 })
