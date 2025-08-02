@@ -169,7 +169,8 @@ const generateGen3Prompt = async (
   const promptRequest = `
   You are a Gen-3 prompt generator.
   Generate a surreal but photorealistic video prompt under 900 characters.
-  The transformation must start at a small visible point in Image 1, then gradually change into Image 2 by morphing visible elements.
+  The transformation must start at a small visible point in Image 1 and gradually morph into Image 2 by transforming textures, shapes, or objects in stages.
+  Describe at least two intermediate changes between the start and the final state.
   Avoid scene cuts or sudden jumps. Use vivid visual verbs like melt, ripple, shift, twist, blur, reshape.
   Image 1: ${desc1}
   Image 2: ${desc2}`;
