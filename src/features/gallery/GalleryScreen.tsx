@@ -310,7 +310,7 @@ const resizeImage = async (uri: string): Promise<string> => {
       0,
       undefined,
       false,
-      { mode: 'cover' },
+      { mode: 'contain' },
     );
 
     console.log('[resizeImage] リサイズ完了:', resized.uri);
