@@ -1,29 +1,18 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',      
+    alignItems: 'center',            
+    justifyContent: 'center',      
+    padding: 20,
+  },
   loadingText: {
-    margin: 20,
+    marginTop: 16,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#3498db',              
+    textAlign: 'center',
   },
-  image: {
-    width: '100%',
-    height: 200,
-    marginVertical: 5,
-  },
-   touchableopacity: {
-    backgroundColor: '#3498db',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-   },
-   text: {
-    color: '#fff',
-    fontWeight: 'bold',
-   },
-   view: {
-    marginTop: 20,
-    alignItems: 'center'
-   },
-   scrollview: {
-    padding: 16,
-   },
 })
