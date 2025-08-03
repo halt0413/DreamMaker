@@ -33,7 +33,7 @@ export default function HomeScreen() {
           <Text style={styles.buttonText}>はじめる</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.button, { marginTop: 20 }]}
+          style={[styles.savedbutton]}
           onPress={handleViewSaved}
         >
           <Text style={styles.buttonText}>保存した動画を見る</Text>

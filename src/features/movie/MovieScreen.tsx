@@ -128,13 +128,12 @@ export default function MovieScreen() {
             <Text style={styles.buttonText}>共有</Text>
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity
-          style={[styles.button, styles.homeButton]}
-          onPress={handleGoHome}
-        >
-          <Text style={styles.buttonText}>ホームに戻る</Text>
-        </TouchableOpacity>
+         <TouchableOpacity
+            style={[styles.homebutton]}
+            onPress={handleGoHome}
+          >
+            <Text style={styles.buttonText}>ホームに戻る</Text>
+          </TouchableOpacity>
       </View>
     </ScrollView>
   )
