@@ -1,31 +1,35 @@
-import { StyleSheet, Dimensions } from 'react-native'
-
-const screenWidth = Dimensions.get('window').width
+import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     flex: 1,
     backgroundColor: '#fff9c4',
+  },
+  container: {
+    paddingVertical: 20,
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingBottom: 80,  
   },
-  videoContainer: {
-    marginBottom: 20,
-    alignItems: 'center', 
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
-  video: {
-    width: screenWidth * 0.9, 
-    height: 200,
+  icon: {
+    width: 130,   
+    height: 130,
+    marginRight: 16,
     borderRadius: 8,
-    backgroundColor: '#000',
   },
-  emptyText: {
-    marginTop: 40,
-    textAlign: 'center',
-    color: '#6b4f1d',
+  label: {
     fontSize: 16,
+    fontWeight: '600',
+    color: '#4a3f35',
+    letterSpacing: 0.5,
   },
-   backButton: {
+  backButton: {
     position: 'absolute',
     bottom: 20,
     left: '50%',

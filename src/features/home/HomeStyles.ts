@@ -62,5 +62,12 @@ export const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 25,
+  },
+  Mypagebutton: {
+    marginTop: 20,
+    backgroundColor: '#f1c40f',
+    paddingVertical: 12,
+    paddingHorizontal: 37,
+    borderRadius: 25,
   }
 })
