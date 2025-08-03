@@ -1,16 +1,20 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+
+const screenWidth = Dimensions.get('window').width
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff9c4',
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingTop: 16,
   },
   videoContainer: {
     marginBottom: 20,
+    alignItems: 'center', 
   },
   video: {
-    width: '100%',
+    width: screenWidth * 0.9, 
     height: 200,
     borderRadius: 8,
     backgroundColor: '#000',
@@ -22,4 +26,3 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
 })
-

@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
   button: {
     backgroundColor: '#f1c40f',
     paddingVertical: 12,
-    paddingHorizontal: 30,
+    paddingHorizontal: 75,
     borderRadius: 25,
   },
   buttonText: {
@@ -56,4 +56,11 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
   },
+  savedbutton: {
+    marginTop: 20,
+    backgroundColor: '#f1c40f',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 25,
+  }
 })
