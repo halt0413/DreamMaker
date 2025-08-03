@@ -1,40 +1,67 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   View,
   Text,
   TouchableOpacity,
   Alert,
+  PermissionsAndroid,
+  Platform,
+  ScrollView,
 } from 'react-native'
 import Share from 'react-native-share'
 import Video from 'react-native-video'
 import { styles } from './MovieStyles'
-import CalendarModal from './CalenderModal'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { RootStackParamList } from '../../navigation/types'
 import RNFS from 'react-native-fs'
+import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 
 type MovieScreenRouteProp = RouteProp<RootStackParamList, 'Movie'>
 
 export default function MovieScreen() {
   const route = useRoute<MovieScreenRouteProp>()
   const { videoUrl } = route.params
-  const [selectedDate, setSelectedDate] = useState<string>('')
-  const [isCalendarVisible, setCalendarVisible] = useState<boolean>(false)
 
-   const handleSave = async () => {
+  const requestPermission = async () => {
+    if (Platform.OS === 'android') {
+      const sdkVersion = Platform.constants?.Release || '0'
+
+      if (parseInt(sdkVersion, 10) >= 13) {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_MEDIA_VIDEO,
+        )
+        return granted === PermissionsAndroid.RESULTS.GRANTED
+      } else {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        )
+        return granted === PermissionsAndroid.RESULTS.GRANTED
+      }
+    }
+    return true
+  }
+
+  const handleSave = async () => {
     if (!videoUrl) return
 
+    const hasPermission = await requestPermission()
+    if (!hasPermission) {
+      Alert.alert('エラー', '保存のための権限がありません。設定から許可してください。')
+      return
+    }
+
     const fileName = `video_${Date.now()}.mp4`
-    const destPath = `${RNFS.DocumentDirectoryPath}/${fileName}`
+    const tempPath = `${RNFS.CachesDirectoryPath}/${fileName}`
 
     try {
-      const downloadResult = await RNFS.downloadFile({
+      const result = await RNFS.downloadFile({
         fromUrl: videoUrl,
-        toFile: destPath,
+        toFile: tempPath,
       }).promise
 
-      if (downloadResult.statusCode === 200) {
-        Alert.alert('保存完了', `保存しました:\n${destPath}`)
+      if (result.statusCode === 200) {
+        await CameraRoll.save(tempPath, { type: 'video' })
+        Alert.alert('保存完了', '動画を写真フォルダに保存しました。')
       } else {
         Alert.alert('保存失敗', '動画の保存に失敗しました。')
       }
@@ -44,13 +71,12 @@ export default function MovieScreen() {
     }
   }
 
-   const handleShare = async () => {
+  const handleShare = async () => {
     if (!videoUrl) return
 
     const tempPath = `${RNFS.CachesDirectoryPath}/shared_video.mp4`
 
     try {
-
       const result = await RNFS.downloadFile({
         fromUrl: videoUrl,
         toFile: tempPath,
@@ -58,7 +84,7 @@ export default function MovieScreen() {
 
       if (result.statusCode === 200) {
         await Share.open({
-          url: `file://${tempPath}`, 
+          url: `file://${tempPath}`,
           type: 'video/mp4',
         })
       } else {
@@ -70,49 +96,29 @@ export default function MovieScreen() {
     }
   }
 
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        選択した日付: {selectedDate || '未選択'}
-      </Text>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Text style={styles.title}>動画のプレビュー</Text>
 
-      <TouchableOpacity
-        style={styles.calemderbutton}
-        onPress={() => setCalendarVisible(true)}
-      >
-        <Text style={styles.buttonText}>カレンダーを開く</Text>
-      </TouchableOpacity>
+        <Video
+          source={{ uri: videoUrl }}
+          style={styles.video}
+          resizeMode="cover"
+          repeat
+          muted
+        />
 
-      <Video
-        source={{ uri: videoUrl }}
-        style={styles.video}
-        resizeMode="cover"
-        repeat
-        muted
-      />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={handleSave}>
+            <Text style={styles.buttonText}>保存</Text>
+          </TouchableOpacity>
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={[styles.button]}
-          onPress={handleSave}
-        >
-          <Text style={styles.buttonText}>保存</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.button]}
-          onPress={handleShare}
-        >
-          <Text style={styles.buttonText}>共有</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleShare}>
+            <Text style={styles.buttonText}>共有</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-
-      <CalendarModal
-        isVisible={isCalendarVisible}
-        onClose={() => setCalendarVisible(false)}
-        onSelectDate={setSelectedDate}
-      />
-    </View>
+    </ScrollView>
   )
 }

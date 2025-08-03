@@ -13,7 +13,7 @@ type Props = {
 export default function CalendarModal({ isVisible, onClose, onSelectDate }: Props) {
   return (
     <Modal isVisible={isVisible} onBackdropPress={onClose}>
-      <View style={styles.modal}>
+      <View style={styles.container}>
         <Text style={styles.title}>日付を選んでください</Text>
         <Calendar
           onDayPress={day => {

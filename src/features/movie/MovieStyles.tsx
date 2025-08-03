@@ -3,21 +3,14 @@ import { StyleSheet, Dimensions } from 'react-native'
 const { width } = Dimensions.get('window')
 
 export const styles = StyleSheet.create({
-  calemderbutton: {
-    backgroundColor: '#f1c40f',
-    paddingVertical: 10,
-    paddingHorizontal:10,
-    borderRadius: 8,
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
   },
   container: {
     flex: 1,
     padding: 16,
     backgroundColor: '#fff9c4',
-  },
-  modal: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    padding: 20,
   },
   title: {
     fontSize: 18,
@@ -38,19 +31,19 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 20,
+    marginBottom: 40, // 👈 スクロール時の余白
   },
   button: {
     backgroundColor: '#f1c40f',
-    paddingVertical: 10,
+    paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
+    minWidth: 100,
+    alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
     fontWeight: '600',
-    width: -50,
+    fontSize: 16,
   },
-  touchableopacity: {
-    opacity: 0.5,
-  }
 })
