@@ -11,15 +11,21 @@ import {
 import Share from 'react-native-share'
 import Video from 'react-native-video'
 import { styles } from './MovieStyles'
-import { RouteProp, useRoute } from '@react-navigation/native'
+import { RouteProp, useRoute, useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../navigation/types'
 import RNFS from 'react-native-fs'
 import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 
 type MovieScreenRouteProp = RouteProp<RootStackParamList, 'Movie'>
+type MovieScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Movie'
+>
 
 export default function MovieScreen() {
   const route = useRoute<MovieScreenRouteProp>()
+  const navigation = useNavigation<MovieScreenNavigationProp>()
   const { videoUrl } = route.params
 
   const requestPermission = async () => {
@@ -96,6 +102,10 @@ export default function MovieScreen() {
     }
   }
 
+  const handleGoHome = () => {
+    navigation.navigate('Home')
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
@@ -118,6 +128,13 @@ export default function MovieScreen() {
             <Text style={styles.buttonText}>共有</Text>
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity
+          style={[styles.button, styles.homeButton]}
+          onPress={handleGoHome}
+        >
+          <Text style={styles.buttonText}>ホームに戻る</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   )
