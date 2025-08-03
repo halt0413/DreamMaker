@@ -17,6 +17,10 @@ export default function HomeScreen() {
     navigation.navigate('Gallery')
   }
 
+  const handleViewSaved = () => {
+    navigation.navigate('Saved')
+  }
+
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/images/kumo.png')} style={[styles.cloud]} />
@@ -27,6 +31,12 @@ export default function HomeScreen() {
         <Text style={styles.title}>DreamMaker</Text>
         <TouchableOpacity style={styles.button} onPress={handleStart}>
           <Text style={styles.buttonText}>はじめる</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, { marginTop: 20 }]}
+          onPress={handleViewSaved}
+        >
+          <Text style={styles.buttonText}>保存した動画を見る</Text>
         </TouchableOpacity>
       </View>
     </View>
