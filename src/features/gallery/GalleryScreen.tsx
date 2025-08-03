@@ -297,21 +297,42 @@ const getBase64 = (uri: string): Promise<string> =>
     xhr.send();
   });
 
+/**
+ * Runwayに送信可能なアスペクト比（0.5〜2.0）かチェック
+ */
+const validateAspectRatio = (width: number, height: number): boolean => {
+  const ratio = width / height;
+  return ratio >= 0.5 && ratio <= 2.0;
+};
+
+/**
+ * 768x1280にトリミングしてアスペクト比も確認する関数
+ */
 const resizeImage = async (uri: string): Promise<string> => {
   console.log('[resizeImage] 画像リサイズ開始:', uri);
+
+  const targetWidth = 768;
+  const targetHeight = 1280;
 
   try {
     const resized = await ImageResizer.createResizedImage(
       uri,
-      768, // width
-      1280, // height
+      targetWidth,
+      targetHeight,
       'JPEG',
       100,
       0,
       undefined,
       false,
-      { mode: 'contain' },
+      { mode: 'cover' }  // アスペクト比を維持しつつ中央トリミング
     );
+
+    const actualRatio = targetWidth / targetHeight;
+    if (!validateAspectRatio(targetWidth, targetHeight)) {
+      throw new Error(
+        `[resizeImage] アスペクト比 ${actualRatio} がRunwayの制限を超えています。`
+      );
+    }
 
     console.log('[resizeImage] リサイズ完了:', resized.uri);
     return resized.uri;
