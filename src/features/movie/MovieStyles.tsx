@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 20,
-    marginBottom: 40, // 👈 スクロール時の余白
+    marginBottom: 20,
   },
   button: {
     backgroundColor: '#f1c40f',
@@ -45,5 +45,9 @@ export const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '600',
     fontSize: 16,
+  },
+  homeButton: {
+    alignSelf: 'center',
+    marginBottom: 40,
   },
 })
