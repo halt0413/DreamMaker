@@ -3,4 +3,5 @@ export type RootStackParamList = {
   Gallery: undefined
   Movie: { videoUrl: string }
   Saved: undefined
+  Mypage: undefined
 }

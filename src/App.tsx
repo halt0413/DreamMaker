@@ -6,6 +6,7 @@ import { RootStackParamList } from './navigation/types'
 import { NavigationContainer } from '@react-navigation/native'
 import  MovieScreen  from './features/movie/MovieScreen'
 import SavedScreen from './features/saved/SavedScreen'
+import MypageScreen from './features/mypage/MypageScreen'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -17,6 +18,7 @@ export default function AppNavigator() {
         <Stack.Screen name="Movie" component={MovieScreen} />
         <Stack.Screen name="Gallery" component={GalleryScreen} />
         <Stack.Screen name="Saved" component={SavedScreen} />
+        <Stack.Screen name='Mypage' component={MypageScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -21,6 +21,10 @@ export default function HomeScreen() {
     navigation.navigate('Saved')
   }
 
+  const handleMypage = () => {
+    navigation.navigate('Mypage')
+  }
+
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/images/kumo.png')} style={[styles.cloud]} />
@@ -37,6 +41,9 @@ export default function HomeScreen() {
           onPress={handleViewSaved}
         >
           <Text style={styles.buttonText}>保存した動画を見る</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.Mypagebutton} onPress={handleMypage}>
+          <Text style={styles.buttonText}>マイページに行く</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, FlatList, Platform, PermissionsAndroid } from 'react-native'
+import { View, Text, FlatList, Platform, PermissionsAndroid, TouchableOpacity } from 'react-native'
 import Video from 'react-native-video'
 import { CameraRoll } from '@react-native-camera-roll/camera-roll'
 import { styles } from './SavedStyles'
+import { useNavigation } from '@react-navigation/native'
 
 export default function SavedScreen() {
   const [videos, setVideos] = useState<string[]>([])
+  const navigation = useNavigation()
 
   useEffect(() => {
     const load = async () => {
@@ -54,6 +56,10 @@ export default function SavedScreen() {
           renderItem={renderItem}
         />
       )}
+      TouchableOpacity
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Text style={styles.backButtonText}>戻る</Text>
+      </TouchableOpacity>
     </View>
   )
 }
